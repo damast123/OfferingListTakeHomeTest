@@ -20,7 +20,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.OFFERLIST,
-      page: () => const OfferListView(),
+      page: () => OfferListView(),
       binding: OfferListBinding(),
     ),
   ];

@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
+const { ObjectId } = require('mongoose').Types;
 const Offer = require('./models/Offer');
 
 const app = express();
@@ -15,17 +16,9 @@ mongoose.connect(dbUri)
 .then(() => console.log('Connected to MongoDB'))
 .catch(err => console.error('Could not connect to MongoDB:', err));
 
-mongoose.connection.on('connected', () => {
-    console.log('Mongoose connected to ' + dbUri);
-});
-mongoose.connection.on('error', (err) => {
-    console.log('Mongoose connection error: ' + err);
-});
-
 const getAllOfferList = async (req, res) => {
     try {
         const offers = await Offer.find();
-        console.log(offers);
         res.status(200).json(offers);
     } catch (err) {
         res.status(500).json({ message: 'Failed to retrieve offers', error: err.message });
@@ -34,12 +27,18 @@ const getAllOfferList = async (req, res) => {
 
 const getOfferListById = async (req, res) => {
     try {
-        const offer = await Offer.findById(req.params.id);
+        const offerId = req.params.id;
+
+        // Validate if the ID is a valid ObjectId
+        const validOfferId = ObjectId.isValid(offerId) ? new ObjectId(offerId) : offerId;
+
+        // Find offer by ID
+        const offer = await Offer.findById(validOfferId);
         if (!offer) {
-          return res.status(404).json({
-            status: 'failed',
-            message: 'Offer not found'
-          });
+            return res.status(404).json({
+                status: 'failed',
+                message: 'Offer not found'
+            });
         }
         res.status(200).json({
           status: 'success',
@@ -96,7 +95,7 @@ app.route('/api/v1/offers')
 
 app.route('/api/v1/offers/:id')
 .get(getOfferListById)
-.patch(updateOfferList)
+.put(updateOfferList)
 .delete(deleteOfferList);
 
 app.listen(port,()=>{

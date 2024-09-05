@@ -7,32 +7,34 @@ class Offer {
   double? discountedPrice;
 
   Offer({
-    required this.id,
-    required this.title,
+    this.id,
+    this.title,
     this.description,
-    required this.discountPercentage,
-    required this.originalPrice,
-    required this.discountedPrice,
+    this.discountPercentage,
+    this.originalPrice,
+    this.discountedPrice,
   });
 
-  Offer.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'];
-    description = json['description'];
-    discountPercentage = json['discountPercentage'] is int
-        ? json['discountPercentage'].toDouble()
-        : json['discountPercentage'];
-    originalPrice = json['originalPrice'] is int
-        ? json['originalPrice'].toDouble()
-        : json['originalPrice'];
-    discountedPrice = json['discountedPrice'] is int
-        ? json['discountedPrice'].toDouble()
-        : json['discountedPrice'];
+  factory Offer.fromJson(Map<String, dynamic> json) {
+    return Offer(
+      id: json['_id'],
+      title: json['title'],
+      description: json['description'],
+      discountPercentage: json['discountPercentage'] is int
+          ? json['discountPercentage'].toDouble()
+          : json['discountPercentage'],
+      originalPrice: json['originalPrice'] is int
+          ? json['originalPrice'].toDouble()
+          : json['originalPrice'],
+      discountedPrice: json['discountedPrice'] is int
+          ? json['discountedPrice'].toDouble()
+          : json['discountedPrice'],
+    );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
+    data['_id'] = id;
     data['title'] = title;
     data['description'] = description;
     data['discountPercentage'] = discountPercentage;
