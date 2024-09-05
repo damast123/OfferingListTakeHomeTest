@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 import '../widget/offer_list_widget.dart';
 
@@ -34,6 +35,19 @@ class HomeView extends GetView<HomeController> {
                 children: [
                   Expanded(
                     child: offerListWidget(context),
+                  ),
+                  TextButton.icon(
+                    onPressed: () {
+                      Get.toNamed(
+                        Routes.OFFERLIST,
+                        arguments: [
+                          {
+                            'mode': 'add',
+                          },
+                        ],
+                      );
+                    },
+                    label: const Text("Add Offer"),
                   ),
                 ],
               );
