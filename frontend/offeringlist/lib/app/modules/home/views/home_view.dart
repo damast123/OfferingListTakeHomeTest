@@ -31,23 +31,32 @@ class HomeView extends GetView<HomeController> {
             }
 
             return LayoutBuilder(builder: (context, sized) {
+              double availableWidth = sized.maxWidth;
+              bool isTablet = availableWidth > 600;
               return Column(
                 children: [
                   Expanded(
-                    child: offerListWidget(),
+                    child: offerListWidget(isTablet),
                   ),
-                  TextButton.icon(
-                    onPressed: () {
-                      Get.toNamed(
-                        Routes.OFFERLIST,
-                        arguments: [
-                          {
-                            'mode': 'add',
-                          },
-                        ],
-                      );
-                    },
-                    label: const Text("Add Offer"),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isTablet ? 50 : 16,
+                      vertical: 8,
+                    ),
+                    child: TextButton.icon(
+                      onPressed: () {
+                        Get.toNamed(
+                          Routes.OFFERLIST,
+                          arguments: [
+                            {
+                              'mode': 'add',
+                            },
+                          ],
+                        );
+                      },
+                      icon: const Icon(Icons.add_circle),
+                      label: const Text("Add Offer"),
+                    ),
                   ),
                 ],
               );
