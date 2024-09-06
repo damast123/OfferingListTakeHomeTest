@@ -15,7 +15,7 @@ void main() {
   testWidgets('Offers List displays correctly', (WidgetTester tester) async {
     await tester.pumpWidget(
       GetMaterialApp(
-        home: Scaffold(body: offerListWidget()),
+        home: Scaffold(body: offerListWidget(true)),
       ),
     );
     expect(find.text('No offers available'), findsNothing);
