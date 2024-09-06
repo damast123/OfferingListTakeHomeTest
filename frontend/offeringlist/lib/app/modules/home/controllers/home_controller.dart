@@ -7,7 +7,7 @@ import '../../offerlist/provider/OfferList.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
-  final isLoading = true.obs;
+  final isLoading = false.obs;
 
   RxList allOfferList = List<Offer>.empty(growable: true).obs;
 
@@ -38,7 +38,7 @@ class HomeController extends GetxController {
     });
   }
 
-  void getOfferListHome() async {
+  Future<void> getOfferListHome() async {
     try {
       isLoading.value = true;
       var data = await offerListProvider.getAllOfferList();

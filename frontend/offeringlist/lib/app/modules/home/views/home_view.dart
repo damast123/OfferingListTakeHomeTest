@@ -34,7 +34,7 @@ class HomeView extends GetView<HomeController> {
               return Column(
                 children: [
                   Expanded(
-                    child: offerListWidget(context),
+                    child: offerListWidget(),
                   ),
                   TextButton.icon(
                     onPressed: () {

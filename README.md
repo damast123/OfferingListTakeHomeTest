@@ -78,6 +78,7 @@ flutter run
 - The app will be connected to the local backend running on localhost:3300. To change this, the API URL in the frontend must be modified.
 2. Limitations
 - The current version does not handle user authentication. Future iterations could integrate a user system to associate offers with individual users.
+- There is some unit testing is not work perfect because of the state management (getx).
 - The frontend and backend are tightly coupled to local environments, and the app might not work properly when deployed to a production server without configuration adjustments.
 - Error handling and input validation are basic and may need enhancements for production use.
 - The app assumes that MongoDB is running locally on the default port, and might need adjustments for external MongoDB services.
