@@ -5,7 +5,7 @@ import '../../../data/models/offer.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 
-Widget offerListWidget(BuildContext ctx) {
+Widget offerListWidget() {
   final HomeController _getHomeController = Get.find();
   return ListView.separated(
     padding: const EdgeInsets.all(8.0),

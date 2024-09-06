@@ -7,7 +7,6 @@ const Offer = require('./models/Offer');
 
 const app = express();
 const port = process.env.SERVER_PORT;
-console.log(process.env.SERVER_PORT);
 const dbUri = `mongodb://${process.env.SERVER}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 
 app.use(express.json());
@@ -41,7 +40,6 @@ const getOfferListById = async (req, res) => {
             });
         }
         res.status(200).json({
-          status: 'success',
           data: { offer }
         });
     } catch (err) {
@@ -53,7 +51,7 @@ const createOfferList = async (req,res) => {
     try {
         const offer = new Offer(req.body);
         await offer.save();
-        res.status(201).json(offer);
+        res.status(201).json(req.body);
     } catch (err) {
         res.status(500).json({ message: 'Failed to create offer', error: err.message });
     }
@@ -68,7 +66,7 @@ const updateOfferList = async (req,res) => {
             message: 'Offer not found'
           });
         }
-        res.json(offer);
+        res.status(202).json(offer);
     } catch (err) {
         res.status(500).json({ message: 'Failed to update offer', error: err.message });
     }
@@ -101,3 +99,5 @@ app.route('/api/v1/offers/:id')
 app.listen(port,()=>{
     console.log(`Server running on port ${port}...`);
 });
+
+module.exports = app;

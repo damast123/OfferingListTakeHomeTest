@@ -39,7 +39,14 @@ class OfferListController extends GetxController {
             title: 'Form Submitted',
             middleText:
                 'Title: $title\nDescription: $description\nDiscount: $discountPercentage%\nOriginal Price: Rp.$originalPrice\nDiscounted Price: Rp.$discountedPrice',
-            onConfirm: () => Get.back(),
+            onConfirm: () {
+              Get.back();
+              titleController.text = '';
+              descriptionController.text = '';
+              discountPercentageController.text = '';
+              originalPriceController.text = '';
+              discountedPriceController.text = '';
+            },
             textConfirm: "Ok",
           );
         } else {
@@ -54,7 +61,7 @@ class OfferListController extends GetxController {
     }
   }
 
-  void getOfferListDetail(String id) async {
+  Future<void> getOfferListDetail(String id) async {
     try {
       isLoading.value = true;
       var data = await offerListProvider.getOfferList(id);
@@ -102,6 +109,7 @@ class OfferListController extends GetxController {
             textConfirm: "Ok",
           );
         }
+        isEditMode.value = false;
       });
     }
   }
